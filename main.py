@@ -47,12 +47,7 @@ y_train_no_outliers = y_train[outlier_pred == 1]
 model = RandomForestClassifier(random_state=42, n_estimators=1200) # You can adjust hyperparameters here
 model.fit(X_train_no_outliers, y_train_no_outliers)
 
-# Make predictions on the training data (without outliers)
-y_pred_train = model.predict_proba(X_train_no_outliers)[:, 1]
-
-# Create submission file for training data
-submission_train = pd.DataFrame({'loan_id': loan_id_train[outlier_pred == 1], 'prob': y_pred_train})
-submission_train.to_csv('submission_train.csv', index=False)
+print("Model Training finished")
 
 # Load the test data
 test_data = pd.read_csv("test_1.csv")
@@ -76,4 +71,4 @@ y_pred_test = model.predict_proba(X_test_scaled)[:, 1]
 submission_test = pd.DataFrame({'loan_id': loan_id_test, 'prob': y_pred_test})
 submission_test.to_csv('submission_test.csv', index=False)
 
-print("finished")
+print("Prediction finished")
